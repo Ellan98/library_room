@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './layout/table.dart';
+import 'package:library_room/ui/table/table.dart';
 import './layout/responsive.dart';
 // import './ui/page/app/app.dart';
 
@@ -14,16 +14,19 @@ void main() {
     return null;
   });
 
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
   const App({super.key});
 
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: ResponsiveScreen(
-          mobile: const TableLayout(), table: const TableLayout()),
+          mobile: TableLayout(),
+          table: TableLayout(),
+          desktop: TableLayout()),
     );
   }
 }

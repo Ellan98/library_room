@@ -56,6 +56,13 @@ add_subdirectory("runner")
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
+# 添加SDK包含路径
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/SDK/include)
+# 添加SDK库路径
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/sdk/lib)
+
+# 链接SDK库文件
+target_link_libraries(${BINARY_NAME} PRIVATE sdk_library_name)
 
 
 # === Installation ===

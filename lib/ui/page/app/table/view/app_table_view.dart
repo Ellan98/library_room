@@ -4,6 +4,7 @@ import 'package:library_room/widgets/dash_animation.dart';
 class AppTableView extends StatelessWidget {
   const AppTableView({super.key});
 
+  @override
   Widget build(BuildContext context) {
     Dash dash = Dash();
     return Scaffold(

@@ -15,14 +15,17 @@ class LoggerInterceptor extends Interceptor {
   }) : config = config ?? LogInterceptorConfig();
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers['authorization'] = SPManager.getToken();
     handler.next(options);
   }
 
   /// 处理请求配置信息
   void _handleRequest(RequestOptions options) {
-    bool existRequest = config.showRequest || config.showRequestHeader || config.showRequestBody;
+    bool existRequest = config.showRequest ||
+        config.showRequestHeader ||
+        config.showRequestBody;
     if (existRequest) {
       _printDecorateHead(title: 'Request ');
       _print('${options.method}  ${options.uri}');
@@ -60,7 +63,8 @@ class LoggerInterceptor extends Interceptor {
     _handleRequest(response.requestOptions);
     _handleResponse(response);
     _renderCurlRepresentation(response.requestOptions);
-    if (config.onCompleted != null) config.onCompleted!(response.statusCode == 200);
+    if (config.onCompleted != null)
+      config.onCompleted!(response.statusCode == 200);
     handler.next(response);
   }
 
@@ -70,7 +74,8 @@ class LoggerInterceptor extends Interceptor {
     bool existResponse = config.showResponseHeader || config.showResponseBody;
     if (existResponse) {
       _printDecorateHead(title: 'Response');
-      _print('${response.statusCode}  ${response.requestOptions.uri}  ${response.statusMessage}');
+      _print(
+          '${response.statusCode}  ${response.requestOptions.uri}  ${response.statusMessage}');
     }
     if (config.showResponseHeader) {
       _print('extra: ${response.extra}');
@@ -158,7 +163,8 @@ class LoggerInterceptor extends Interceptor {
         // 此处在上传文件时，无法解析json，会报错
         try {
           if (config.isFormatJson) {
-            jsonString = JsonEncoder.withIndent(interval).convert(json.decode(msg));
+            jsonString =
+                JsonEncoder.withIndent(interval).convert(json.decode(msg));
           }
         } catch (e) {
           jsonString = msg;
@@ -177,9 +183,11 @@ class LoggerInterceptor extends Interceptor {
   void _printDecorateHead({bool needShow = true, String? title}) {
     if (!needShow) return;
     if (config.isDecorate) {
-      _logPrint('╔══════════════════════════════ $title ════════════════════════════════════╗');
+      _logPrint(
+          '╔══════════════════════════════ $title ════════════════════════════════════╗');
     } else {
-      _logPrint('----------------------------------- $title -----------------------------------------');
+      _logPrint(
+          '----------------------------------- $title -----------------------------------------');
     }
   }
 
@@ -187,7 +195,8 @@ class LoggerInterceptor extends Interceptor {
   void _printDecorateTail({bool needShow = true}) {
     if (!needShow) return;
     if (config.isDecorate) {
-      _logPrint('╚════════════════════════════════════════════════════════════════════════════╝');
+      _logPrint(
+          '╚════════════════════════════════════════════════════════════════════════════╝');
     }
   }
 

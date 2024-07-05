@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flame: ^1.18.0
-
+  http: ^1.2.1
   cupertino_icons: ^1.0.6
 
 dev_dependencies:
@@ -27,8 +27,8 @@ flutter:
   assets:
     # - images/a_dot_burr.jpeg
     - assets/images/
-    - assets/animations/
-    - assets/rating-assets/
+#    - assets/animations/
+#    - assets/rating-assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
