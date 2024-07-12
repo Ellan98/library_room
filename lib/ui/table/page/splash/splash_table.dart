@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_room/constant/images.dart';
 import './widgets/chat.dart';
+import 'package:library_room/model/ai/gemini_1.5-flash.dart';
+import 'package:provider/provider.dart';
 
 class SplashTable extends StatefulWidget {
   const SplashTable({super.key});
@@ -16,10 +18,10 @@ class _SplashTableState extends State<SplashTable> {
   bool showTrailing = false;
   double groupAlignment = -1.0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    ChatTableLayout(),
-    ChatTableLayout(),
-    ChatTableLayout(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const ChatTableLayout(),
+    const ChatTableLayout(),
+    const ChatTableLayout(),
   ];
 
   Widget _ScrollView(selectedPage) {
@@ -33,14 +35,14 @@ class _SplashTableState extends State<SplashTable> {
             shadowColor: Colors.black.withOpacity(0.6),
             expandedHeight: 160.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text("Drawer"),
+              title: const Text("model"),
               background: Image.asset(navigator),
             )),
         const SliverToBoxAdapter(
           child: SizedBox(
             height: 20,
             child: Center(
-              child: Text("Scroll to see the SliverAppBar in effect."),
+              child: Text("model list view"),
             ),
           ),
         ),
@@ -51,40 +53,51 @@ class _SplashTableState extends State<SplashTable> {
             padding: const EdgeInsets.only(top: 10),
             child: Center(
               child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  // border: Border.all(color: Colors.blue, width: 1),
-                  // color: Colors.white
-                  // color: Colors.amber
-                ),
-                width: 220,
-                height: 50,
-                child: const Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    // border: Border.all(color: Colors.blue, width: 1),
+                    // color: Colors.white
+                    // color: Colors.amber
+                  ),
+                  width: 220,
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 5,
+                      right: 5,
+                    ),
+                    child: _renderModelItem(index),
+                  )),
             ),
           );
         }, childCount: 20)),
-       
       ],
+    );
+  }
+
+// 单个模型 item
+  Widget _renderModelItem(int index) {
+    return GestureDetector(
+      child: SizedBox(
+        child: ColoredBox(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Text("data$index"),
+          ),
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    // 获取 GeminiModel 的实例
+    GeminiModel gemini = Provider.of<GeminiModel>(context, listen: false);
+
+    // 调用 GeminiModel 中的方法，例如：
+    gemini.loadModel();
     String selectedPage = '';
     return Scaffold(
         body: Row(children: <Widget>[
