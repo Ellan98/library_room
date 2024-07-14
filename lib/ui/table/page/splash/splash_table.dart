@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:library_room/constant/images.dart';
 import './widgets/chat.dart';
 import 'package:library_room/model/ai/gemini_1.5-flash.dart';
 import 'package:provider/provider.dart';
+import 'package:library_room/http/request.dart';
+import 'dart:convert';
 
 class SplashTable extends StatefulWidget {
   const SplashTable({super.key});
@@ -23,6 +28,19 @@ class _SplashTableState extends State<SplashTable> {
     const ChatTableLayout(),
     const ChatTableLayout(),
   ];
+// 初始化进行数据加载
+  @override
+  void initState() {
+    print("初始化");
+    super.initState();
+    getList();
+  }
+
+  getList() async {
+    var list = await dio.get("/modellist");
+
+    print("响应列表数据${(list)}------------");
+  }
 
   Widget _ScrollView(selectedPage) {
     return CustomScrollView(
@@ -95,7 +113,6 @@ class _SplashTableState extends State<SplashTable> {
     Size size = MediaQuery.of(context).size;
     // 获取 GeminiModel 的实例
     GeminiModel gemini = Provider.of<GeminiModel>(context, listen: false);
-
     // 调用 GeminiModel 中的方法，例如：
     gemini.loadModel();
     String selectedPage = '';
