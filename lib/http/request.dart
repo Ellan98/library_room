@@ -17,7 +17,7 @@ final options = BaseOptions(
 final dio = Dio(options); // With default `Options`.
 
 
-dio.Interceptors.add(CustomInterceptors());
+// dio.Interceptors.add(CustomInterceptors());
 
 
 

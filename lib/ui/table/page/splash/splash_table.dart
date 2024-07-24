@@ -37,9 +37,9 @@ class _SplashTableState extends State<SplashTable> {
   }
 
   getList() async {
-    var list = await dio.get("/modellist");
+    // var list = await dio.get("/modellist");
 
-    print("响应列表数据${(list)}------------");
+    // print("响应列表数据${(list)}------------");
   }
 
   Widget _ScrollView(selectedPage) {
